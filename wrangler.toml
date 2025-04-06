@@ -2,3 +2,12 @@ name = "playground"
 compatibility_date = "2025-03-21"
 main = "./server/index.ts"
 assets = { html_handling = "none" }
+
+[[d1_databases]]
+binding = "<BINDING_NAME>"
+database_name = "<DATABASE_NAME>"
+database_id = "<DATABASE_ID>"
+
+[[r2_buckets]]
+binding = 'MY_BUCKET' # <~ valid JavaScript variable name
+bucket_name = '<YOUR_BUCKET_NAME>'

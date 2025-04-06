@@ -2,10 +2,10 @@ import { Suspense } from "react";
 import useSWR from 'swr';
 
 function App() {
-  const { data } = useSWR('/api/test', { suspense: true });
+  const { data } = useSWR('/api/test');
   return (
     <>
-      <h1>Internot</h1>
+      <h1>Playground</h1>
       <p>Message: {data?.message}</p>
     </>
   );
