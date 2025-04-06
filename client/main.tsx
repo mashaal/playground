@@ -3,26 +3,24 @@ import ReactDOM from "react-dom/client";
 import App from "./app";
 import "./index.css";
 import { Suspense } from "react";
-import { SWRConfig } from 'swr';
+import { SWRConfig } from "swr";
+import ErrorBoundary from "./utils/ErrorBoundary";
+import localStorageProvider from "./utils/localStorage";
 
-function localStorageProvider() {
-  const map = new Map(JSON.parse(localStorage.getItem('app-cache') || '[]'))
-
-  window.addEventListener('beforeunload', () => {
-    const appCache = JSON.stringify(Array.from(map.entries()))
-    localStorage.setItem('app-cache', appCache)
-  })
-  
-  return map
-}
-
-// Create a root element and render the app
 ReactDOM.createRoot(document.getElementById("app") as HTMLElement).render(
   <React.StrictMode>
-    <SWRConfig value={{provider:localStorageProvider, fetcher: (url) => fetch(url).then(res => res.json()), suspense: true }}>
-      <Suspense fallback={null}>
-        <App />
-      </Suspense>
+    <SWRConfig
+      value={{
+        provider: localStorageProvider,
+        fetcher: (url) => fetch(url).then((res) => res.json()),
+        suspense: true,
+      }}
+    >
+      <ErrorBoundary fallback={<h1>Error</h1>}>
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <App />
+        </Suspense>
+      </ErrorBoundary>
     </SWRConfig>
   </React.StrictMode>,
 );
