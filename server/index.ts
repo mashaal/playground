@@ -2,7 +2,7 @@ import html from "#vono/html";
 
 import { Hono } from "hono"
 
-let app = new Hono;
+const app = new Hono;
 
 app.get("/api/test", c => c.json({ message: "Hello World" }))
 
